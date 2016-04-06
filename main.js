@@ -4,6 +4,9 @@ var context = canvas.getContext("2d");
 var startFrameMillis = Date.now();
 var endFrameMillis = Date.now();
 
+//load the image set to use for the level tiles
+var tileset = document.createElement("img");
+tileset.src = "tileset.png"
 // This function will return the time in seconds since the function 
 // was last called
 // You should only call this function once per frame
@@ -35,6 +38,36 @@ var fpsTime = 1;
 var fps = 1;
 var fpsCount = 1;
 
+var LAYER_COUNT =3; //number of layers on map, bg, platform, ladder
+var MAP = {tw:60, th:15}; //how big the level is in tiles
+var TILE = 35; //width/height of a tile in pixels.
+var TILESET_TILE = TILE*2; //width/height of tileset
+var TILESET_PADDING = 2; //how many pixels in image border and tile images in tilemap
+var TILESET_SPACING = 2; //how many pixels are between tile images and tilemap
+var TILESET_COUNT_X = 14; //how many colums of tile images in tileset
+var TILESET_COUNT_Y = 14; //how many rows of tile images in the tileset
+
+
+
+function drawMap() {
+    for (var layerIdx = 0; layerIdx < LAYER_COUNT; layerIdx++) {
+        var idx = 0;
+        for (var y = 0; y < level1.layers[layerIdx].height; y++) {
+            for (var x = 0; x < level1.layers[layerIdx].width; x++) {
+                if (level1.layers[layerIdx].data[idx] != 0) {
+                    var tileIndex = level1.layers[layerIdx].data[idx] - 1;
+                    var sx = TILESET_PADDING + (tileIndex % TILESET_COUNT_X) * (TILESET_TILE + TILESET_SPACING);
+                    var sy = TILESET_PADDING + (Math.floor(tileIndex / TILESET_COUNT_Y)) * (TILESET_TILE + TILESET_SPACING);
+                    context.drawImage(tileset, sx, sy, TILESET_TILE, TILESET_TILE, x * TILE, (y - 1) * TILE, TILESET_TILE, TILESET_TILE);
+                }
+                idx++;
+            }
+        }
+    }
+}
+
+
+
 function run() 
 {
     context.fillStyle = "#ccc";
@@ -42,8 +75,12 @@ function run()
     
     var deltaTime = getDeltaTime();
     
+    drawMap();
+    
     player.update(deltaTime);
     player.draw();
+   
+     
    
     // update the frame counter
     fpsTime += deltaTime;
