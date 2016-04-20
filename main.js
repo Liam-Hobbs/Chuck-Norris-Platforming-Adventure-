@@ -50,6 +50,10 @@ var TILESET_SPACING = 2; //how many pixels are between tile images and tilemap
 var TILESET_COUNT_X = 14; //how many colums of tile images in tileset
 var TILESET_COUNT_Y = 14; //how many rows of tile images in the tileset
 
+var SCREEN_WIDTH = canvas.width;
+var SCREEN_HEIGHT = canvas.height;
+
+
  // abitrary choice for 1m
 var METER = TILE;
  // very exaggerated gravity (6x)
