@@ -31,7 +31,7 @@ function getDeltaTime()
 	return deltaTime;
 }
 
-var player = new Player();
+
 var keyboard = new Keyboard();
 
 var fpsTime = 1;
@@ -53,6 +53,7 @@ var TILESET_COUNT_Y = 14; //how many rows of tile images in the tileset
 var SCREEN_WIDTH = canvas.width;
 var SCREEN_HEIGHT = canvas.height;
 
+var player = new Player();
 
  // abitrary choice for 1m
 var METER = TILE;
@@ -189,6 +190,21 @@ function run()
 
 
 initialize();
+
+/* CODE FROM ZACH THAT I MAY NEED
+function DrawLevelCollisionData(tileLayer) {
+    for (var y = 0; y < level1.layers[tileLayer].height; y++) {
+        for (var x = 0; x < level1.layers[tileLayer].width; x++) {
+            if (cells[tileLayer][y][x] == 1) {
+                context.fillStyle = "#F00";
+                context.fillRect(TILE * x, TILE * y, TILE, TILE);
+            }
+        }
+    }
+}
+SOMETHING TO DO WITH COLLISION */
+
+
 
 //-------------------- Don't modify anything below here
 
