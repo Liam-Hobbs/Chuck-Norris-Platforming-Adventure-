@@ -6,7 +6,7 @@ var context = canvas.getContext("2d");
 var Player = function () 
 {
     this.image = document.createElement("img");
-    this.posistion = new Vector2(this.x,this.y)
+    this.posistion = new Vector2(this.x,this.y);
     
     this.width = 159;
     this.height = 163;
@@ -64,7 +64,8 @@ Player.prototype.update = function(deltaTime)
         this.velocity.x = bound(this.velocity.x + (deltaTime * ddx), -MAXDX, MAXDX);
         this.velocity.y = bound(this.velocity.y + (deltaTime * ddy), -MAXDY, MAXDY);
         if ((wasleft && (this.velocity.x > 0)) ||
-            (wasright && (this.velocity.x < 0))) {
+            (wasright && (this.velocity.x < 0))) 
+        {
             // clamp at zero to prevent friction from making us jiggle side to side
             this.velocity.x = 0;
         }
