@@ -6,8 +6,9 @@ var context = canvas.getContext("2d");
 var Player = function () 
 {
     this.image = document.createElement("img");
-    this.posistion = new Vector2(this.x,this.y);
-    
+    this.position = new Vector2(0,0);
+    this.position.set(9 * TILE, 0 * TILE);
+
     this.width = 159;
     this.height = 163;
     
