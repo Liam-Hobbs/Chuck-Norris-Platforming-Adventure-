@@ -41,7 +41,7 @@ var fpsCount = 1;
 var LAYER_COUNT =3; //number of layers on map, bg, platform, ladder
 var LAYER_BACKGROUND = 0;
 var LAYER_PLATFORMS = 1;
-var LAYER_PLATFORMS = 2;
+var LAYER_LADDERS = 2;
 var MAP = {tw:60, th:15}; //how big the level is in tiles
 var TILE = 35; //width/height of a tile in pixels.
 var TILESET_TILE = TILE*2; //width/height of tileset
@@ -53,7 +53,7 @@ var TILESET_COUNT_Y = 14; //how many rows of tile images in the tileset
 var SCREEN_WIDTH = canvas.width;
 var SCREEN_HEIGHT = canvas.height;
 
-var player = new Player();
+
 
  // abitrary choice for 1m
 var METER = TILE;
@@ -70,9 +70,11 @@ var FRICTION = MAXDX * 6;
  // (a large) instantaneous jump impulse
 var JUMP = METER * 1500;
 
+var player = new Player();
+
 //load the image to use for the level tiles.
-var tileset = document.createElement("img");
-tileset.src = "tileset.png";
+//var tileset = document.createElement("img");
+//tileset.src = "tileset.png";
 
 var cells = [];                    // the array that holds our simplified collision data
 function initialize() {

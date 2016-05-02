@@ -7,7 +7,7 @@ var Player = function ()
 {
     this.image = document.createElement("img");
     this.position = new Vector2(0,0);
-    this.position.set(9 * TILE, 0 * TILE);
+    this.position.set(9 * 35, 0 * 35);
 
     this.width = 159;
     this.height = 163;
@@ -117,7 +117,7 @@ Player.prototype.update = function(deltaTime)
 
 Player.prototype.draw = function () {
     context.save();
-         context.translate(this.posistion);
+         context.translate(this.position.x,this.position.y);
          context.rotate(this.rotation);
          context.drawImage(this.image, -this.width / 2, -this.height / 2);
     context.restore();
