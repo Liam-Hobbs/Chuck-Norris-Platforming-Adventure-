@@ -205,7 +205,7 @@ function DrawLevelCollisionData(tileLayer) {
         }
     }
 }
-SOMETHING TO DO WITH COLLISION */
+drawing boxes on collisions */
 
 
 

@@ -145,15 +145,7 @@ this.sprite.update(deltaTime);
 
 Player.prototype.draw = function () 
 {
-    {
             this.sprite.draw(context, this.position.x, this.position.y);
-    }
-    context.save();
-    
-         context.translate(this.position.x,this.position.y);
-        // context.rotate(this.rotation);
-         context.drawImage(this.image, -this.width / 2, -this.height / 2);
-    context.restore();
 }
 
 
