@@ -72,6 +72,7 @@ var JUMP = METER * 1500;
 
 var player = new Player();
 
+
 //load the image to use for the level tiles.
 //var tileset = document.createElement("img");
 //tileset.src = "tileset.png";
