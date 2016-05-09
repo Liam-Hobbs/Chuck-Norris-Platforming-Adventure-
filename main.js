@@ -32,7 +32,6 @@ function getDeltaTime()
 }
 
 
-var keyboard = new Keyboard();
 
 var fpsTime = 1;
 var fps = 1;
@@ -71,6 +70,9 @@ var FRICTION = MAXDX * 6;
 var JUMP = METER * 1500;
 
 var player = new Player();
+var keyboard = new Keyboard();
+
+
 
 
 //load the image to use for the level tiles.
@@ -177,18 +179,20 @@ function run()
      
    
     // update the frame counter
-    fpsTime += deltaTime;
+   /* fpsTime += deltaTime;
     fpsCount++;
     if (fpsTime >= 1) {
         fpsTime -= 1;
         fps = fpsCount;
         fpsCount = 0;
-    }
+    }  
     // draw the FPS
     context.fillStyle = "#f00";
     context.font = "14px Arial";
     context.fillText("FPS: " + fps, 5, 20, 100);
+*/
 
+   
 }
 
 

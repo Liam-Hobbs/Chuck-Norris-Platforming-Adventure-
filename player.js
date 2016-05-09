@@ -45,11 +45,21 @@ var Player = function ()
     this.jumping = false
     
     this.direction = LEFT;
+    
+    this.healthIcon = document.createElement("img")
+    this.healthIcon.src = "heart.png";
+    
+    this.ammoIcon = document.createElement("img")
+    this.ammoIcon.src = "ammo.png";
+    
+    this.ammoCount = 30;
+    this.healthCount = 3;
 };
 
 var player = Player ();
 
-
+  //create images
+    
 
 Player.prototype.update = function(deltaTime)
 {
@@ -174,12 +184,40 @@ this.sprite.update(deltaTime);
                 this.velocity.x = 0; // stop horizontal velocity
             }
         }
+        
+        //taking damage - testing code
+         if (keyboard.isKeyDown(keyboard.KEY_TILDE) == true)
+        {
+            this.healthCount--;
+        }
+      
+         //shooting
+          if (keyboard.isKeyDown(keyboard.KEY_A) == true)
+        {
+            this.ammoCount--;
+        }
     }
 }
 
-Player.prototype.draw = function () 
-{
-            this.sprite.draw(context, this.position.x, this.position.y);
+Player.prototype.draw = function () {
+    this.sprite.draw(context, this.position.x, this.position.y);
+    //draw HUD
+    var iconXoffset = 5;
+    var iconYoffset = 5;
+    var iconXRepeating = 35;
+    var iconSizeX = 30;
+    var iconSizeY = 30;
+
+
+    for (var i = 0; i < this.healthCount; i++) {
+        context.drawImage(healthIcon, iconXoffset + (iconXRepeating * i), iconYoffset, iconSizeX, iconSizeY);
+        
+    }
+    context.drawImage(ammoIcon,5,50,40,40)
+    context.fillStyle = "#000";
+    context.font = "18px Arial";
+    context.fillText("x "+ammoCount,40,80);
+    
 }
 
 
