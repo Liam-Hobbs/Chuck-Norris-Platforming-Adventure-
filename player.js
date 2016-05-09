@@ -54,6 +54,7 @@ var Player = function ()
     
     this.ammoCount = 30;
     this.healthCount = 3;
+    this.scoreCount = 0;
 };
 
 var player = Player ();
@@ -184,19 +185,29 @@ this.sprite.update(deltaTime);
                 this.velocity.x = 0; // stop horizontal velocity
             }
         }
-        
+
         //taking damage - testing code
-      //   if (keyboard.isKeyDown(keyboard.KEY_TILDE) == true)
-      //  {
-          //  this.healthCount--;
-           // this.ammoCount--;
-      //  }
-      
-         //shooting
-          if (keyboard.isKeyDown(keyboard.KEY_A) == true)
-        {
-            this.ammoCount--;
+        if (keyboard.isKeyDown(keyboard.KEY_TILDE) == true) {
             this.healthCount--;
+            // this.ammoCount--;
+        }
+      
+        //shooting  - taking ammo
+        if (keyboard.isKeyDown(keyboard.KEY_A) == true) {
+            if (this.ammoCount > 0) {
+                this.ammoCount--;
+            }
+
+        }
+        //adding ammo
+        if (keyboard.isKeyDown(keyboard.KEY_D) == true) {
+            this.ammoCount++;
+
+
+        }
+        //score
+        if (keyboard.isKeyDown(keyboard.KEY_S) == true) {
+            this.scoreCount++;
         }
     }
 }
@@ -210,16 +221,19 @@ Player.prototype.draw = function () {
     var iconSizeX = 30;
     var iconSizeY = 30;
 
-  context.drawImage(ammoIcon,5,50,40,40)
-    context.fillStyle = "#000";
-    context.font = "18px Arial";
-    context.fillText("x "+ ammoCount,40,80);
-    
-
-
     for (var i = 0; i < this.healthCount; i++) {
         context.drawImage(healthIcon, iconXoffset + (iconXRepeating * i), iconYoffset, iconSizeX, iconSizeY);
-        
+
+        context.fillStyle = "#000";
+        context.font = "18px Arial";
+        context.fillText("Score is: " + this.scoreCount.toString(), 500, 40);
+
+        context.drawImage(ammoIcon, 5, 50, 40, 40)
+        context.fillStyle = "#000";
+        context.font = "18px Arial";
+        context.fillText("x " + this.ammoCount.toString(), 40, 80);
+
+
     }
   
 }
