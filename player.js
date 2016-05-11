@@ -15,7 +15,7 @@ var ANIM_MAX = 6;
 
 var Player = function ()
 {
-    this.sprite = new Sprite("ChuckNorris.png");
+    this.sprite = new Sprite ("ChuckNorris.png");
     this.sprite.buildAnimation(12, 8, 165, 126, 0.05,
         [0, 1, 2, 3, 4, 5, 6, 7]);
     this.sprite.buildAnimation(12, 8, 165, 126, 0.05,
@@ -125,6 +125,7 @@ this.sprite.update(deltaTime);
             // apply an instantaneous (large) vertical impulse
             ddy = ddy - JUMP;
             this.jumping = true;
+            
             if (this.direction == LEFT)
                 this.sprite.setAnimation(ANIM_JUMP_LEFT)
             else
@@ -196,8 +197,9 @@ this.sprite.update(deltaTime);
         if (keyboard.isKeyDown(keyboard.KEY_A) == true) {
             if (this.ammoCount > 0) {
                 this.ammoCount--;
+                sfx.play();
             }
-
+           
         }
         //adding ammo
         if (keyboard.isKeyDown(keyboard.KEY_D) == true) {
@@ -209,20 +211,23 @@ this.sprite.update(deltaTime);
         if (keyboard.isKeyDown(keyboard.KEY_S) == true) {
             this.scoreCount++;
         }
+          if (keyboard.isKeyDown(keyboard.KEY_W) == true) {
+              this.healthCount++;
+          }
     }
 }
 
 Player.prototype.draw = function () {
-    this.sprite.draw(context, this.position.x, this.position.y);
+    this.sprite.draw(context,
+        this.position.x - worldOffsetX,
+        this.position.y);
+
     //draw HUD
     var iconXoffset = 5;
     var iconYoffset = 5;
     var iconXRepeating = 35;
     var iconSizeX = 30;
     var iconSizeY = 30;
-
-    for (var i = 0; i < this.healthCount; i++) {
-        context.drawImage(healthIcon, iconXoffset + (iconXRepeating * i), iconYoffset, iconSizeX, iconSizeY);
 
         context.fillStyle = "#000";
         context.font = "18px Arial";
@@ -233,7 +238,8 @@ Player.prototype.draw = function () {
         context.font = "18px Arial";
         context.fillText("x " + this.ammoCount.toString(), 40, 80);
 
-
+    for (var i = 0; i < this.healthCount; i++) {
+        context.drawImage(healthIcon, iconXoffset + (iconXRepeating * i), iconYoffset, iconSizeX, iconSizeY);
     }
   
 }

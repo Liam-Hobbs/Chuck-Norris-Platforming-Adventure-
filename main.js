@@ -37,10 +37,19 @@ var fpsTime = 1;
 var fps = 1;
 var fpsCount = 1;
 
+var ENEMY_MAXDX = METER * 5
+var ENEMY_ACCEL = ENEMY_MAXDX *2;
+
+var enemies = [];
+
 var LAYER_COUNT =3; //number of layers on map, bg, platform, ladder
 var LAYER_BACKGROUND = 0;
 var LAYER_PLATFORMS = 1;
 var LAYER_LADDERS = 2;
+
+var LAYER_OBJECT_ENEMIES = 3;
+var LAYER_OBJECT_TRIGGERS = 4;
+
 var MAP = {tw:60, th:15}; //how big the level is in tiles
 var TILE = 35; //width/height of a tile in pixels.
 var TILESET_TILE = TILE*2; //width/height of tileset
@@ -72,8 +81,22 @@ var JUMP = METER * 1500;
 var player = new Player();
 var keyboard = new Keyboard();
 
+var music = new Howl(
+    {
+        urls: ["background.ogg"],
+        loop: true,
+        buffer: true,
+        volume: 0.15
+    });
+music.play();
 
+var sfx = new Howl(
+                {
+                    urls: ["fireEffect.ogg"],
+                    buffer: true,
+                    volume: 0.5,
 
+                } );
 
 //load the image to use for the level tiles.
 //var tileset = document.createElement("img");
@@ -97,12 +120,23 @@ function initialize() {
                 }
                 else if (cells[layerIdx][y][x] != 1) {
                     cells[layerIdx][y][x] = 0; // if we haven't set this cell's value, then set it to 0 now
+                    //add enemies
+               
+                    idx = 0;
+                    for (var y = 0; y < level1.layers[LAYER_OBJECT_ENEMIES].height; y++) {
+                        for (var x = 0; x < level1.layers[LAYER_OBJECT_ENEMIES].width; x++) {
+                            if (level1.layers[LAYER_OBJECT_ENEMIES].data[idx] != 0) {
+                                var px = tileToPixel(x);
+                                var py = tileToPixel(y);
+                                var e = new Enemy(px, py);
+                                enemies.push(e);
+                            }
+                        }
+                        idx++;
+                    }
                 }
-                idx++;
             }
         }
-    }
-}
 
 function cellAtPixelCoord(layer, x, y) {
     if (x < 0 || x > SCREEN_WIDTH) // remove ‘|| y<0’
@@ -141,17 +175,39 @@ function bound(value, min, max) {
 
 
 
-
+var worldOffsetX = 0;
 function drawMap() {
+    var startX = -1;
+    var maxTiles = Math.floor(SCREEN_WIDTH / TILE) + 2;
+    var tileX = pixelToTile(player.position.x);
+    var offsetX = TILE + Math.floor(player.position.x % TILE);
+
+    startX = tileX - Math.floor(maxTiles / 2);
+
+    if (startX < -1) {
+        startX = 0;
+        offsetX = 0;
+    }
+    if (startX > MAP.tw - maxTiles) {
+        startX = MAP.tw - maxTiles + 1;
+        offsetX = TILE;
+    }
+    worldOffsetX = startX * TILE + offsetX;
+
     for (var layerIdx = 0; layerIdx < LAYER_COUNT; layerIdx++) {
-        var idx = 0;
         for (var y = 0; y < level1.layers[layerIdx].height; y++) {
-            for (var x = 0; x < level1.layers[layerIdx].width; x++) {
+            var idx = y * level1.layers[layerIdx].width + startX;
+            for (var x = startX; x < startX + maxTiles; x++) {
                 if (level1.layers[layerIdx].data[idx] != 0) {
+                    // the tiles in the Tiled map are base 1 (meaning a value of 0 means no tile),
+                    // so subtract one from the tileset id to get the correct tile
                     var tileIndex = level1.layers[layerIdx].data[idx] - 1;
-                    var sx = TILESET_PADDING + (tileIndex % TILESET_COUNT_X) * (TILESET_TILE + TILESET_SPACING);
-                    var sy = TILESET_PADDING + (Math.floor(tileIndex / TILESET_COUNT_Y)) * (TILESET_TILE + TILESET_SPACING);
-                    context.drawImage(tileset, sx, sy, TILESET_TILE, TILESET_TILE, x * TILE, (y - 1) * TILE, TILESET_TILE, TILESET_TILE);
+                    var sx = TILESET_PADDING + (tileIndex % TILESET_COUNT_X) *
+                        (TILESET_TILE + TILESET_SPACING);
+                    var sy = TILESET_PADDING + (Math.floor(tileIndex / TILESET_COUNT_Y)) *
+                        (TILESET_TILE + TILESET_SPACING);
+                    context.drawImage(tileset, sx, sy, TILESET_TILE, TILESET_TILE,
+                        (x - startX) * TILE - offsetX, (y - 1) * TILE, TILESET_TILE, TILESET_TILE);
                 }
                 idx++;
             }
@@ -175,8 +231,15 @@ function run()
     
     player.update(deltaTime);
     player.draw();
-   
-     
+
+    for (var i = 0; i < enemies.length; i++) {
+        enemies[i].update(deltaTime);
+    }
+    for (var i = 0; i < enemies.length; i++) {
+        enemy.draw();
+    }
+
+
    
     // update the frame counter
    /* fpsTime += deltaTime;
