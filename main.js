@@ -102,9 +102,9 @@ var sfx = new Howl(
 //var tileset = document.createElement("img");
 //tileset.src = "tileset.png";
 
-var cells = [];                    // the array that holds our simplified collision data
+var cells = []; // the array that holds our simplified collision data
 function initialize() {
-    for (var layerIdx = 0; layerIdx < LAYER_COUNT; layerIdx++) {    // initialize the collision map
+    for (var layerIdx = 0; layerIdx < LAYER_COUNT; layerIdx++) { // initialize the collision map
         cells[layerIdx] = [];
         var idx = 0;
         for (var y = 0; y < level1.layers[layerIdx].height; y++) {
@@ -112,30 +112,28 @@ function initialize() {
             for (var x = 0; x < level1.layers[layerIdx].width; x++) {
                 if (level1.layers[layerIdx].data[idx] != 0) {
                     // for each tile we find in the layer data, we need to create 4 collisions
-                    // (because our collision squares are 35x35 but the tile in the level are 70x70)
-                    cells[layerIdx][y][x] = 1; //bottom left
-                    cells[layerIdx][y - 1][x] = 1; //above one
-                    cells[layerIdx][y - 1][x + 1] = 1;// above and right
-                    cells[layerIdx][y][x + 1] = 1; // right one
-                
-                
-               //add enemies
-                    idx = 0;
-                    for (var y = 0; y < level1.layers[LAYER_OBJECT_ENEMIES].height; y++) {
-                        for (var x = 0; x < level1.layers[LAYER_OBJECT_ENEMIES].width; x++) {
-                            if (level1.layers[LAYER_OBJECT_ENEMIES].data[idx] != 0) {
-                                var px = tileToPixel(x);
-                                var py = tileToPixel(y);
-                                var e = new Enemy(px, py);
-                                enemies.push(e);
-                            }
+                    // (because our collision squares are 35x35 but the tile in the
+                    // level are 70x70)
+                    cells[layerIdx][y][x] = 1;
+                    cells[layerIdx][y - 1][x] = 1;
+                    cells[layerIdx][y - 1][x + 1] = 1;
+                    cells[layerIdx][y][x + 1] = 1;
+                }
+                else if (cells[layerIdx][y][x] != 1) {
+                    // if we haven't set this cell's value, then set it to 0 now
+                    cells[layerIdx][y][x] = 0;
+                }
+                idx = 0;
+                for (var y = 0; y < level1.layers[LAYER_OBJECT_ENEMIES].height; y++) {
+                    for (var x = 0; x < level1.layers[LAYER_OBJECT_ENEMIES].width; x++) {
+                        if (level1.layers[LAYER_OBJECT_ENEMIES].data[idx] != 0) {
+                            var px = tileToPixel(x);
+                            var py = tileToPixel(y);
+                            var e = new Enemy(px, py);
+                            enemies.push(e);
                         }
                         idx++;
                     }
-                }
-                else if (cells[layerIdx][y][x] != 1) {
-                    cells[layerIdx][y][x] = 0; // if we haven't set this cell's value, then set it to 0 now
-                    
                 }
             }
         }

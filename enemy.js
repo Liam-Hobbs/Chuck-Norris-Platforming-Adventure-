@@ -11,6 +11,10 @@ this.position.set(x, y);
 this.velocity = new Vector2();
 this.moveRight = true;
 this.pause = 0;
+
+this.width = 10;
+this.height = 10;
+
 }
 
 var enemy = Enemy ();

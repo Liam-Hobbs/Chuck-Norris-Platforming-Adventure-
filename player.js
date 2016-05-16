@@ -208,7 +208,7 @@ this.sprite.update(deltaTime);
         }
           if (keyboard.isKeyDown(keyboard.KEY_W) == true) {
               this.healthCount++;
-          }
+        }
     }
 }
 
