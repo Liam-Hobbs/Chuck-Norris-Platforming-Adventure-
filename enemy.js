@@ -1,23 +1,19 @@
 var canvas = document.getElementById("gameCanvas");
 var context = canvas.getContext("2d");
 
-
-
-var Enemy = function (x, y) {
-    this.sprite = new Sprite ("bat.png");
-    this.sprite.buildAnimation(2, 1, 88, 94, 0.3, [0, 1]);
-    this.sprite.setAnimationOffset(0, -35, -40);
-    this.position = new Vector2();
-    this.position.set(x, y);
-    this.velocity = new Vector2();
-    this.moveRight = true;
-    this.pause = 0;
+var Enemy = function(x, y)
+{
+this.sprite = new Sprite("bat.png");
+this.sprite.buildAnimation(2, 1, 88, 94, 0.3, [0,1]);
+this.sprite.setAnimationOffset(0, -35, -40);
+this.position = new Vector2();
+this.position.set(x, y);
+this.velocity = new Vector2();
+this.moveRight = true;
+this.pause = 0;
 }
 
 var enemy = Enemy ();
-
-  //create images
-    
 
 Enemy.prototype.update = function (dt) {
     this.sprite.update(dt);
@@ -59,43 +55,3 @@ Enemy.prototype.update = function (dt) {
             -ENEMY_MAXDX, ENEMY_MAXDX);
     }
 }
-
-
-
-
-
-
-
-
-
-/*Player.prototype.update = function (deltaTime) 
-{
-    if (typeof (this.rotation) == "undefined")
-        this.rotation = 0;
-    this.rotation += deltaTime;
-}
-
-Player.prototype.draw = function () {
-    context.save();
-         context.translate(this.x, this.y);
-         context.rotate(this.rotation);
-         context.drawImage(this.image, -this.width / 2, -this.height / 2);
-    context.restore();
-}
-
-
-
-Player.prototype.update = function (deltaTime) 
-{
-    if (typeof (this.rotation) == "undefined")
-        this.rotation = 0;
-        
-    if (keyboard.isKeyDown(keyboard.KEY_SPACE) == true) 
-    {
-        this.rotation -= deltaTime;
-    }
-    else {
-        this.rotation += deltaTime;
-    }
-}
-*/

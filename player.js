@@ -57,7 +57,7 @@ var Player = function ()
     this.scoreCount = 0;
 };
 
-var player = Player ();
+var player = Player();
 
   //create images
     

@@ -137,6 +137,8 @@ function initialize() {
                 }
             }
         }
+    }
+}
 
 function cellAtPixelCoord(layer, x, y) {
     if (x < 0 || x > SCREEN_WIDTH) // remove ‘|| y<0’
@@ -155,7 +157,7 @@ function cellAtTileCoord(layer, tx, ty) // remove ‘|| y<0’
     //this means death
     if (ty >= MAP.th)
         return 0;
-    return cells[layer][ty][tx];
+    return cells[layer][tx][ty];
 };
 
 function tileToPixel(tile) {
