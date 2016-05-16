@@ -190,22 +190,17 @@ this.sprite.update(deltaTime);
         //taking damage - testing code
         if (keyboard.isKeyDown(keyboard.KEY_TILDE) == true) {
             this.healthCount--;
-            // this.ammoCount--;
         }
-      
         //shooting  - taking ammo
         if (keyboard.isKeyDown(keyboard.KEY_A) == true) {
             if (this.ammoCount > 0) {
                 this.ammoCount--;
                 sfx.play();
             }
-           
         }
         //adding ammo
         if (keyboard.isKeyDown(keyboard.KEY_D) == true) {
             this.ammoCount++;
-
-
         }
         //score
         if (keyboard.isKeyDown(keyboard.KEY_S) == true) {
@@ -213,7 +208,7 @@ this.sprite.update(deltaTime);
         }
           if (keyboard.isKeyDown(keyboard.KEY_W) == true) {
               this.healthCount++;
-          }
+        }
     }
 }
 
