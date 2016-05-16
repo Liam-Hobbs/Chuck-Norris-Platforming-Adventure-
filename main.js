@@ -119,7 +119,7 @@ function initialize() {
                     cells[layerIdx][y][x + 1] = 1; // right one
                 
                 
-               
+               //add enemies
                     idx = 0;
                     for (var y = 0; y < level1.layers[LAYER_OBJECT_ENEMIES].height; y++) {
                         for (var x = 0; x < level1.layers[LAYER_OBJECT_ENEMIES].width; x++) {
@@ -135,11 +135,11 @@ function initialize() {
                 }
                 else if (cells[layerIdx][y][x] != 1) {
                     cells[layerIdx][y][x] = 0; // if we haven't set this cell's value, then set it to 0 now
-                    //add enemies
+                    
+                }
             }
         }
     }
-}
 }
 
 function cellAtPixelCoord(layer, x, y) {
@@ -159,7 +159,7 @@ function cellAtTileCoord(layer, tx, ty) // remove ‘|| y<0’
     //this means death
     if (ty >= MAP.th)
         return 0;
-    return cells[layer][tx][tx];
+    return cells[layer][ty][tx];
 };
 
 function tileToPixel(tile) {
