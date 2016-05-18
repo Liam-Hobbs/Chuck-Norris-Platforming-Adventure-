@@ -209,6 +209,10 @@ this.sprite.update(deltaTime);
           if (keyboard.isKeyDown(keyboard.KEY_W) == true) {
               this.healthCount++;
         }
+          if (cellAtTileCoord(LAYER_OBJECT_TRIGGERS, tx, ty) == true) {
+              this.scoreCount++;
+          }
+    
     }
 }
 
