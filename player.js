@@ -56,6 +56,7 @@ var Player = function ()
     this.healthCount = 3;
     this.scoreCount = 0;
     this.timeCount = 0;
+
 };
 
 var player = Player();
@@ -98,7 +99,7 @@ this.sprite.update(deltaTime);
                 }
             }
         }
-        if (keyboard.isKeyDown(keyboard.KEY_UP) == true) {
+        if (keyboard.isKeyDown(keyboard.KEY_SPACE) == true) {
             jump = true;
             if (left == true) {
                 this.sprite.setAnimation(ANIM_JUMP_LEFT);
@@ -200,12 +201,14 @@ this.sprite.update(deltaTime);
     /*     if (keyboard.isKeyDown(keyboard.KEY_A) == true) {
             if (this.ammoCount > 0) {
                 this.ammoCount--;
-                sfx.play();
+                bulletSFX.play();
             }
         }
         //adding ammo
         if (keyboard.isKeyDown(keyboard.KEY_D) == true) {
             this.ammoCount++;
+            
+            
         }
         //score
         if (keyboard.isKeyDown(keyboard.KEY_S) == true) {
@@ -218,6 +221,7 @@ this.sprite.update(deltaTime);
               gameState = STATE_WIN;
           }
         this.timeCount = this.timeCount + deltaTime;
+        this.roundTime = Math.round(this.timeCount)
     }
 }
 
@@ -235,7 +239,7 @@ Player.prototype.draw = function () {
 
         context.fillStyle = "#000";
         context.font = "18px Arial";
-        context.fillText("Timer " + this.timeCount.toString(), 500, 40);
+        context.fillText("Timer: " + this.roundTime.toString(), 500, 40);
 
         context.drawImage(ammoIcon, 5, 50, 40, 40)
         context.fillStyle = "#000";

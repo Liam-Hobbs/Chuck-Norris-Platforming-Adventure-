@@ -14,7 +14,6 @@ function getDeltaTime()
 {
 	endFrameMillis = startFrameMillis;
 	startFrameMillis = Date.now();
-
 		// Find the delta time (dt) - the change in time since the last drawFrame
 		// We need to modify the delta time to something we can use.
 		// We want 1 to represent 1 second, so if the delta is in milliseconds
@@ -46,6 +45,8 @@ var ENEMY_MAXDX = METER * 5
 var ENEMY_ACCEL = ENEMY_MAXDX *2;
 
 var enemies = [];
+
+var bullets = [];
 
 var LAYER_COUNT =3; //number of layers on map, bg, platform, ladder
 var LAYER_BACKGROUND = 0;
@@ -95,14 +96,20 @@ var music = new Howl(
     });
 music.play();
 
-var sfx = new Howl(
+var jumpSFX = new Howl(
                 {
                     urls: ["jump.ogg"],
                     buffer: true,
                     volume: 0.5,
 
                 } );
+var bulletSFX = new Howl(
+                {
+                    urls: ["fireEffect.ogg"],
+                    buffer: true,
+                    volume: 0.5,
 
+                } );
 //load the image to use for the level tiles.
 //var tileset = document.createElement("img");
 //tileset.src = "tileset.png";
@@ -282,6 +289,7 @@ function run()
     for (var i = 0; i < enemies.length; i++) {
         enemies[i].update(deltaTime);
     }
+    
 
 
     // update the frame counter
