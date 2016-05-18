@@ -207,7 +207,7 @@ this.sprite.update(deltaTime);
             this.scoreCount++;
         }
           if (keyboard.isKeyDown(keyboard.KEY_W) == true) {
-              gameState = 1;
+              this.healthCount++;
         }
           if (cellAtTileCoord(LAYER_OBJECT_TRIGGERS, tx, ty) == true) {
               this.scoreCount++;
@@ -239,6 +239,9 @@ Player.prototype.draw = function () {
 
     for (var i = 0; i < this.healthCount; i++) {
         context.drawImage(healthIcon, iconXoffset + (iconXRepeating * i), iconYoffset, iconSizeX, iconSizeY);
+      context.fillStyle = "#000";
+        context.font = "18px Arial";
+        context.fillText("player y position is " + this.position.y.toString(), 200, 40);
     }
   
 }

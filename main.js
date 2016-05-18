@@ -33,10 +33,10 @@ function getDeltaTime()
 
 
 var STATE_PLAY = 0;
-var STATE_LOOSE = 1;
+var STATE_LOSE = 1;
 var STATE_WIN = 2;
 
-var gameState = 0;
+var gameState = STATE_PLAY;
 
 var fpsTime = 1;
 var fps = 1;
@@ -242,16 +242,6 @@ function drawMap() {
     }
 }
 
-
-function GameOver()
-{
-if (gameState = 1);
-context.fillStyle = "#000";
-context.font = "50px Arial";
-context.fillText ( "GAME OVER",200,260);
-}
-
-
 function run() 
 {
     context.fillStyle = "#ccc";
@@ -259,13 +249,33 @@ function run()
     
     var deltaTime = getDeltaTime();
     
+    if(player.position.y >= 600 && gameState == STATE_PLAY)
+    {
+        gameState == STATE_LOSE;
+    }
+    
     drawMap();
     
-     player.update(deltaTime);
+    player.update(deltaTime);
     
-    if(gameState = 1 ) GameOver();
-    else if (gameState = 2) Win();
-    else if (gameState = 0) player.draw();
+    if(gameState == STATE_PLAY)
+    {
+        player.draw();
+    }
+    else if (gameState == STATE_LOSE)
+    {
+        context.fillStyle = "#000";
+        context.font = "50px Arial";
+        context.fillText("GAME OVER", 200, 260);
+    }
+    else if (gameState == STATE_WIN)
+    {
+        context.fillStyle = "#000";
+        context.font = "50px Arial";
+        context.fillText("YOU WIN", 200, 260);
+    }
+    
+    
     
 
 
