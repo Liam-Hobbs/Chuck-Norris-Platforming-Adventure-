@@ -97,7 +97,7 @@ music.play();
 
 var sfx = new Howl(
                 {
-                    urls: ["fireEffect.ogg"],
+                    urls: ["jump.ogg"],
                     buffer: true,
                     volume: 0.5,
 
@@ -249,9 +249,9 @@ function run()
     
     var deltaTime = getDeltaTime();
     
-    if(player.position.y >= 600 && gameState == STATE_PLAY)
+    if(player.healthCount == 0)
     {
-        gameState == STATE_LOSE;
+        gameState = STATE_LOSE;
     }
     
     drawMap();

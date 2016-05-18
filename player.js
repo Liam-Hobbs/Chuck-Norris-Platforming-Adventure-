@@ -55,6 +55,7 @@ var Player = function ()
     this.ammoCount = 30;
     this.healthCount = 3;
     this.scoreCount = 0;
+    this.timeCount = 0;
 };
 
 var player = Player();
@@ -97,7 +98,7 @@ this.sprite.update(deltaTime);
                 }
             }
         }
-        if (keyboard.isKeyDown(keyboard.KEY_SPACE) == true) {
+        if (keyboard.isKeyDown(keyboard.KEY_UP) == true) {
             jump = true;
             if (left == true) {
                 this.sprite.setAnimation(ANIM_JUMP_LEFT);
@@ -125,6 +126,7 @@ this.sprite.update(deltaTime);
             // apply an instantaneous (large) vertical impulse
             ddy = ddy - JUMP;
             this.jumping = true;
+            sfx.play();
             
             if (this.direction == LEFT)
                 this.sprite.setAnimation(ANIM_JUMP_LEFT)
@@ -188,11 +190,14 @@ this.sprite.update(deltaTime);
         }
 
         //taking damage - testing code
-        if (keyboard.isKeyDown(keyboard.KEY_TILDE) == true) {
+        if (this.position.y >= 600 && gameState == STATE_PLAY)
+        {
             this.healthCount--;
+            this.position.set(9 * 35, 0 * 35);
+            
         }
-        //shooting  - taking ammo
-        if (keyboard.isKeyDown(keyboard.KEY_A) == true) {
+        //shooting  - taking ammo - NOT IMPLEMENTED
+    /*     if (keyboard.isKeyDown(keyboard.KEY_A) == true) {
             if (this.ammoCount > 0) {
                 this.ammoCount--;
                 sfx.play();
@@ -208,11 +213,11 @@ this.sprite.update(deltaTime);
         }
           if (keyboard.isKeyDown(keyboard.KEY_W) == true) {
               this.healthCount++;
-        }
+        }     */
           if (cellAtTileCoord(LAYER_OBJECT_TRIGGERS, tx, ty) == true) {
-              this.scoreCount++;
+              gameState = STATE_WIN;
           }
-    
+        this.timeCount = this.timeCount + deltaTime;
     }
 }
 
@@ -230,7 +235,7 @@ Player.prototype.draw = function () {
 
         context.fillStyle = "#000";
         context.font = "18px Arial";
-        context.fillText("Score is: " + this.scoreCount.toString(), 500, 40);
+        context.fillText("Timer " + this.timeCount.toString(), 500, 40);
 
         context.drawImage(ammoIcon, 5, 50, 40, 40)
         context.fillStyle = "#000";
@@ -239,10 +244,14 @@ Player.prototype.draw = function () {
 
     for (var i = 0; i < this.healthCount; i++) {
         context.drawImage(healthIcon, iconXoffset + (iconXRepeating * i), iconYoffset, iconSizeX, iconSizeY);
-      context.fillStyle = "#000";
+     /* context.fillStyle = "#000";
         context.font = "18px Arial";
         context.fillText("player y position is " + this.position.y.toString(), 200, 40);
-    }
+        
+          context.fillStyle = "#000";
+        context.font = "18px Arial";
+        context.fillText("player health is " + this.healthCount.toString(), 200, 60);
+*/    }
   
 }
 
