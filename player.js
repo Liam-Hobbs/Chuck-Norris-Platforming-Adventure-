@@ -127,7 +127,7 @@ this.sprite.update(deltaTime);
             // apply an instantaneous (large) vertical impulse
             ddy = ddy - JUMP;
             this.jumping = true;
-            sfx.play();
+            jumpSFX.play();
             
             if (this.direction == LEFT)
                 this.sprite.setAnimation(ANIM_JUMP_LEFT)
