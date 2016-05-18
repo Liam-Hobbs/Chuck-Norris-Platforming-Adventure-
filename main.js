@@ -32,6 +32,11 @@ function getDeltaTime()
 }
 
 
+var STATE_PLAY = 0;
+var STATE_LOOSE = 1;
+var STATE_WIN = 2;
+
+var gameState = 0;
 
 var fpsTime = 1;
 var fps = 1;
@@ -146,6 +151,19 @@ function initialize() {
             idx++;
         }
     }
+    // add enemies
+    idx = 0;
+    for (var y = 0; y < level1.layers[LAYER_OBJECT_ENEMIES].height; y++) {
+        for (var x = 0; x < level1.layers[LAYER_OBJECT_ENEMIES].width; x++) {
+            if (level1.layers[LAYER_OBJECT_ENEMIES].data[idx] != 0) {
+                var px = tileToPixel(x);
+                var py = tileToPixel(y);
+                var e = new Enemy(px, py);
+                enemies.push(e);
+            }
+            idx++;
+        }
+    } 
 }
 function cellAtPixelCoord(layer, x, y) {
     if (x < 0 || x > SCREEN_WIDTH) // remove ‘|| y<0’
@@ -225,8 +243,13 @@ function drawMap() {
 }
 
 
-
-
+function GameOver()
+{
+if (gameState = 1);
+context.fillStyle = "#000";
+context.font = "50px Arial";
+context.fillText ( "GAME OVER",200,260);
+}
 
 
 function run() 
@@ -238,18 +261,19 @@ function run()
     
     drawMap();
     
-    player.update(deltaTime);
-    player.draw();
+     player.update(deltaTime);
+    
+    if(gameState = 1 ) GameOver();
+    else if (gameState = 2) Win();
+    else if (gameState = 0) player.draw();
+    
+
 
     for (var i = 0; i < enemies.length; i++) {
         enemies[i].update(deltaTime);
     }
-    for (var i = 0; i < enemies.length; i++) {
-        enemy.draw();
-    }
 
 
-   
     // update the frame counter
    /* fpsTime += deltaTime;
     fpsCount++;

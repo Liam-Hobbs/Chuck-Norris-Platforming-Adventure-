@@ -207,7 +207,7 @@ this.sprite.update(deltaTime);
             this.scoreCount++;
         }
           if (keyboard.isKeyDown(keyboard.KEY_W) == true) {
-              this.healthCount++;
+              gameState = 1;
         }
           if (cellAtTileCoord(LAYER_OBJECT_TRIGGERS, tx, ty) == true) {
               this.scoreCount++;
