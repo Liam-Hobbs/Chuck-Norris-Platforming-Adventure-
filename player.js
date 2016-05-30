@@ -220,8 +220,13 @@ this.sprite.update(deltaTime);
           if (cellAtTileCoord(LAYER_OBJECT_TRIGGERS, tx, ty) == true) {
               gameState = STATE_WIN;
           }
+          if (gameState == STATE_PLAY)
+          {
         this.timeCount = this.timeCount + deltaTime;
         this.roundTime = Math.round(this.timeCount)
+        endTimer = this.roundTimer
+          }
+          
     }
 }
 

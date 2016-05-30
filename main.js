@@ -67,6 +67,7 @@ var TILESET_COUNT_Y = 14; //how many rows of tile images in the tileset
 var SCREEN_WIDTH = canvas.width;
 var SCREEN_HEIGHT = canvas.height;
 
+var endTimer = 0;
 
 
  // abitrary choice for 1m
@@ -249,6 +250,8 @@ function drawMap() {
     }
 }
 
+
+
 function run() 
 {
     context.fillStyle = "#ccc";
@@ -280,7 +283,10 @@ function run()
         context.fillStyle = "#000";
         context.font = "50px Arial";
         context.fillText("YOU WIN", 200, 260);
-    }
+       /* context.fillStyle = "#000";
+        context.font = "25px Arial";
+        context.fillText("Your time was: "+endTimer,200, 300);
+    */}
     
     
     
